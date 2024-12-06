@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <title>Nothern Lights</title>
+</head>
+<body>
+    <div class="container">
+        <header role="banner">
+            <h1>Northern Lights Tracker</h1>
+            <p>Discover aurora visibility worldwide!</p>
+        </header>
+
+        <section class="search-section" aria-labelledby="search-label">
+            <label id="search-label" for="city-search">Enter City:</label>
+            <input type="text" id="city-search" placeholder="e.g., Tromsø" aria-label="City search input" autocomplete="on">
+            <button id="search-button" aria-controls="data-section">Search</button>
+            <div id="search-error" role="alert" aria-live="assertive" style="display:none; color:red;">Invalid city.</div>
+        </section>
+
+        <section id="data-section" class="data-section" aria-describedby="data-description">
+            <p id="data-description">Aurora visibility data for your selected location:</p>
+            <div class="historical-data">
+                <h2>7-Day Historical Aurora Visibility</h2>
+                <div id="historical-visibility"></div>
+            </div>
+
+            <div class="forecast-data">
+                <h2>24-Hour Aurora Forecast</h2>
+                <div id="forecast-visibility"></div>
+            </div>
+
+            <div class="weather-data">
+                <h2>Current Weather Conditions</h2>
+                <div id="weather-conditions"></div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
