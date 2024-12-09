@@ -6,6 +6,8 @@ const weatherConditions = document.getElementById("weather-conditions");
 const searchError = document.getElementById("search-error");
 const loadingIndicator = document.getElementById("loading-indicator");
 
+const apiKey = "YOUR_API_KEY"; // Replace with your actual API key from Aurora's API
+
 searchButton.addEventListener("click", async () => {
   const city = citySearch.value.trim();
   if (!city) return; // Handle empty input
@@ -15,16 +17,35 @@ searchButton.addEventListener("click", async () => {
     showLoading(true);
 
     // Fetch current aurora data
-    const currentResponse = await fetch("http://auroraslive.io/api/v1/current");
+    const currentResponse = await fetch(
+      "http://auroraslive.io/api/v1/current",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${apiKey}`, // Pass API key if required
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
     if (!currentResponse.ok) {
       throw new Error(`HTTP error! status: ${currentResponse.status}`);
     }
     const currentData = await currentResponse.json();
 
     // Fetch historical aurora data
-    const historicalResponse = await fetch(
-      "http://auroraslive.io/api/v1/historical?start=2021-09-01&end=2021-09-30"
-    );
+    const startDate = "2021-09-01";
+    const endDate = "2021-09-30";
+    const historicalUrl = `http://auroraslive.io/api/v1/historical?start=${startDate}&end=${endDate}`;
+
+    const historicalResponse = await fetch(historicalUrl, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+    });
+
     if (!historicalResponse.ok) {
       throw new Error(`HTTP error! status: ${historicalResponse.status}`);
     }
@@ -32,8 +53,16 @@ searchButton.addEventListener("click", async () => {
 
     // Fetch aurora forecast data
     const forecastResponse = await fetch(
-      "http://auroraslive.io/api/v1/forecast"
+      "http://auroraslive.io/api/v1/forecast",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+      }
     );
+
     if (!forecastResponse.ok) {
       throw new Error(`HTTP error! status: ${forecastResponse.status}`);
     }
